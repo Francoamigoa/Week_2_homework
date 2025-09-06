@@ -5,7 +5,7 @@ This repository contains my Week 2 Mini-Assignment using  Heart Disease UCI Data
 
 Source https://www.kaggle.com/datasets/navjotkaushal/heart-disease-uci-dataset
 
-# How to code is structured?
+# How is the code structured?
 
 1. **Import the dataset**  
    Loaded the CSV file.
