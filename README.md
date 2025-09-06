@@ -43,3 +43,4 @@ Source https://www.kaggle.com/datasets/navjotkaushal/heart-disease-uci-dataset
 - analysis.ipynb -> Jupyter Notebook
 - analysis.py -> exported python script
 - README.md -> documentation
+- requirements.txt -> required Python libraries
