@@ -39,7 +39,7 @@ Source https://www.kaggle.com/datasets/navjotkaushal/heart-disease-uci-dataset
 - This analysis was exploratory and preliminary, so further work is needed to draw more robust conclusions.
 
 ## Repository structure
-- Data/Heart.csv -> dataset
+- Data/cleanned.csv -> dataset
 - analysis.ipynb -> Jupyter Notebook
 - analysis.py -> exported python script
 - README.md -> documentation
