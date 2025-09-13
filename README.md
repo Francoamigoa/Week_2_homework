@@ -52,11 +52,13 @@ Source https://www.kaggle.com/datasets/navjotkaushal/heart-disease-uci-dataset
 > Local
 
 pip install -r requirements.txt
+
 pytest -q                # expected: all tests pass
 
 >Docker
 
 docker build -t week2 .
+
 docker run --rm week2              # runs: pytest -q (as defined in Dockerfile CMD)
 
 # Tests 
