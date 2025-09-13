@@ -1,7 +1,7 @@
-# Week_2_homework
+# Week_2_homework (Parte 2)
 I'm Franco Amigo, 2nd year PhD Student in Population Health Sciences.
 
-This repository contains my Week 2 Mini-Assignment using  Heart Disease UCI Dataset (Kaggle)
+This repository contains my Week 2 (or 3) Mini-Assignment using  Heart Disease UCI Dataset (Kaggle)
 
 Source https://www.kaggle.com/datasets/navjotkaushal/heart-disease-uci-dataset
 
@@ -44,3 +44,23 @@ Source https://www.kaggle.com/datasets/navjotkaushal/heart-disease-uci-dataset
 - analysis.py -> exported python script
 - README.md -> documentation
 - requirements.txt -> required Python libraries
+- Dockerfile
+- .dockerignore 
+- test_analysis.py -> 3 test (2 unit test and 1 systems test)
+
+# How to Set Up and Run?
+> Local
+pip install -r requirements.txt
+pytest -q                # expected: all tests pass
+
+>Docker
+docker build -t week2 .
+docker run --rm week2              # runs: pytest -q (as defined in Dockerfile CMD)
+
+# Tests 
+test_analysis.py includes:
+
+- Unit: test_load_heart_ok → validates CSV load and expected columns.
+- Unit: test_run_logistic_model_basic → checks model metrics.
+- System (end-to-end): test_end_to_end_pipeline → real pipeline (load → dummies → model → metrics) with sanity checks on Accuracy/Sensitivity/Specificity ∈ [0,1].
+
