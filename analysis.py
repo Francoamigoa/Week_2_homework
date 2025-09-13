@@ -5,7 +5,10 @@
 import pandas as pd 
 # Load Heart Disease UCI Dataset
 # Source https://www.kaggle.com/datasets/navjotkaushal/heart-disease-uci-dataset
-heart = pd.read_csv("Data/cleanned.csv") 
+def load_heart():
+    return pd.read_csv("Data/cleanned.csv")
+
+heart= load_heart()
 
 # %% [markdown]
 # # Inspect the Data
@@ -31,14 +34,18 @@ heart.describe()
 # %%
 cat_cols = ["sex", "cp", "restecg", "fbs", "exang", "num"]
 
-for col in cat_cols:
-    if col in heart.columns:
-        summary = pd.DataFrame({
-            "Count": heart[col].value_counts(dropna=False),
-            "Percentage": (heart[col].value_counts(normalize=True, dropna=False) * 100).round(2)
-        })
-        print(f"\nFrequencies for {col}:")
-        print(summary)
+        
+def categorical_frequencies(df: pd.DataFrame, cat_cols: list[str]) -> None:
+    for col in cat_cols:
+        if col in df.columns:
+            summary = pd.DataFrame({
+                "Count": df[col].value_counts(dropna=False),
+                "Percentage": (df[col].value_counts(normalize=True, dropna=False) * 100).round(2),
+            })
+            print(f"\nFrequencies for {col}:")
+            print(summary)
+
+freqs = categorical_frequencies(heart, cat_cols)
 
 
 # %% [markdown]
@@ -93,66 +100,57 @@ heart.groupby("num")[heart.select_dtypes(include="number").columns].agg(["mean",
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix, precision_score, recall_score
+
+def run_logistic_model(df, subset_variables, target="disease", test_size=0.2, random_state=2000):
+    X = df[subset_variables]
+    y = df[target]
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=test_size, random_state=random_state, stratify=y
+    )
+
+    model = LogisticRegression(max_iter=2000)
+    model.fit(X_train, y_train)
+
+    y_pred = model.predict(X_test)
+    acc = accuracy_score(y_test, y_pred)
+    cm = confusion_matrix(y_test, y_pred, labels=[0, 1])
+    TN, FP, FN, TP = cm.ravel()
+
+    sensitivity = recall_score(y_test, y_pred, zero_division=0)  # TP / (TP+FN)
+    specificity = TN / (TN + FP) if (TN + FP) > 0 else float("nan")
+
+    print("Variables included:", subset_variables)
+    print("Accuracy:", round(acc, 3))
+    print("Sensitivity:", round(sensitivity, 3))
+    print("Specificity:", round(specificity, 3))
+    return {
+        "Variables": subset_variables,
+        "Accuracy": round(acc, 3),
+        "Sensitivity": round(sensitivity, 3),
+        "Specificity": round(specificity, 3),
+        "Confusion_matrix": cm
+    }
+
 heart["disease"] = (heart["num"] > 0).astype(int)
 heart_d = pd.get_dummies(
     heart,
     columns=["sex", "cp", "restecg", "fbs", "exang"],
     drop_first=True
 )
-heart_d
-subset_variables= ["age", "sex_Male"]
-X = heart_d[subset_variables]
-y = heart_d["disease"]
 
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=2000, stratify=y
-)
-
-model = LogisticRegression(max_iter=2000)
-model.fit(X_train, y_train)
-
-y_pred = model.predict(X_test)
-acc = accuracy_score(y_test, y_pred)
-cm = confusion_matrix(y_test, y_pred)
-sensitivity = recall_score(y_test, y_pred)
-TN, FP, FN, TP = cm.ravel()
-specificity = TN / (TN + FP)
-print("Variables included:", list(X.columns))
-print("Accuracy:", round(acc, 3))
-print("Sensitivity: ", round(sensitivity, 3))
-print("Specificity: ", round(specificity, 3))
+subset_variables = ["age", "sex_Male"]
+res = run_logistic_model(heart_d, subset_variables)
 
 # %%
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix, precision_score, recall_score
-heart["disease"] = (heart["num"] > 0).astype(int)
-heart_d = pd.get_dummies(
-    heart,
-    columns=["sex", "cp", "restecg", "fbs", "exang"],
-    drop_first=True
-)
 
-X = heart_d.drop(columns=["num", "disease"])
-y = heart_d["disease"]
+subset_variables = ['age', 'trestbps', 'chol', 'thalch', 'oldpeak', 'sex_Male', 'cp_non-anginal', 'cp_typical angina', 'restecg_normal', 'restecg_st-t abnormality', 'fbs_True', 'exang_True']
+res = run_logistic_model(heart_d, subset_variables)
 
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=2000, stratify=y
-)
 
-model = LogisticRegression(max_iter=2000)
-model.fit(X_train, y_train)
-
-y_pred = model.predict(X_test)
-acc = accuracy_score(y_test, y_pred)
-cm = confusion_matrix(y_test, y_pred)
-sensitivity = recall_score(y_test, y_pred)
-TN, FP, FN, TP = cm.ravel()
-specificity = TN / (TN + FP)
-print("Variables included:", list(X.columns))
-print("Accuracy:", round(acc, 3))
-print("Sensitivity: ", round(sensitivity, 3))
-print("Specificity: ", round(specificity, 3))
 
 # %% [markdown]
 # The second model, which incorporates more variables, shows improved accuracy, sensitivity, and specificity. Further refinement could involve applying more advanced methods for variable selection or exploring alternative ML algorithms.
