@@ -1,4 +1,4 @@
-![example workflow](https://github.com/Francoamigoa/Week_2_homework/actions/workflows/main.yml/badge.svg)
+![example workflow](https://github.com/Francoamigoa/Week_2_homework/actions/workflows/ci.yml/badge.svg)
 
 # Week_2_homework (Parte 2)
 I'm Franco Amigo, 2nd year PhD Student in Population Health Sciences.
