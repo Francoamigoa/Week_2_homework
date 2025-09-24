@@ -9,6 +9,10 @@ It builds the Docker image, runs the test suite (`pytest`), and checks formattin
 
 [![CI](https://github.com/Francoamigoa/Week_2_homework/actions/workflows/ci.yml/badge.svg)](https://github.com/Francoamigoa/Week_2_homework/actions/workflows/ci.yml)
 
+__CI workflow success__
+
+<img width="672" height="371" alt="image" src="https://github.com/user-attachments/assets/67549716-c13e-47e7-9a24-517e93c1e8c7" />
+
 # Personal objective
 
 I am a PhD student in Population Health Sciences, and my research topic is not related to heart disease. The purpose of this program is to conduct exploratory analyses of the dataset, understand the available variables, identify some crude associations between variables, and generate preliminary hypotheses that could later be confirmed with more robust study designs.
@@ -34,16 +38,27 @@ I am a PhD student in Population Health Sciences, and my research topic is not r
    - Evaluated with accuracy, sensitivity, and specificity.
 
 5. **Visualization**  
-   - Boxplot of age distribution by sex  
-   - Boxplot of age by disease severity  
-   - Scatter/strip plot of age vs disease severity  
+   - Boxplot of age distribution by sex
+    <img width="578" height="445" alt="image" src="https://github.com/user-attachments/assets/afb6edd3-9240-4a63-b0e7-ea2bc2a1d601" />
+ 
+   - Boxplot of age by disease severity
+  <img width="578" height="445" alt="image" src="https://github.com/user-attachments/assets/bba20ffc-2f3f-43f7-a27e-79bae4a7e818" />
+
 
 
 ## Findings
 - The dataset is clean, well-structured, with no missing values or duplicates.
 - Men and women show different distributions disease prevalence and severity.  
 - Asymptomatic chest pain appears to be associated with the presence of disease. 
-- Logistic regression including all variables achieved ~82% accuracy, with higher sensitivity and specificity than the simplified model.
+- Logistic regression including all variables (`age`, `trestbps`, `chol`, `thalach`, `oldpeak`, `sex`, `chest pain`, `resting ECG`, `fasting blood sugar`, `exercise-induced angina`)   achieved about 82% accuracy, with both sensitivity and specificity substantially higher than the simplified age- and sex-only model.
+- __Top Factor associated with higher odds of heart disease__
+  
+<img width="590" height="390" alt="image" src="https://github.com/user-attachments/assets/832959fd-3272-4507-93c0-4a42db484d14" />
+
+__The strongest predictors of heart disease in this dataset are male sex, exercise-induced angina, and greater ST depression, all linked to about __3× higher odds__.
+Typical/non-anginal chest pain and higher maximum heart rate are associated with lower odds.
+Other factors (fasting blood sugar >120, resting ECG categories) show more modest effects.__
+
 - This analysis was exploratory and preliminary, so further work is needed to draw more robust conclusions.
 
 ## Repository structure
@@ -55,6 +70,8 @@ I am a PhD student in Population Health Sciences, and my research topic is not r
 - Dockerfile
 - .dockerignore 
 - test_analysis.py -> 3 test (2 unit test and 1 systems test)
+- .flake8 -> flake8 configuration
+- .github/workflows/ci.yml -> GitHub Actions workflow (Continuous Integration)
 
 # How to Set Up and Run?
 > Local
