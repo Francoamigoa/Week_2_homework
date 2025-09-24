@@ -1,10 +1,17 @@
-[![CI](https://github.com/Francoamigoa/Week_2_homework/actions/workflows/ci.yml/badge.svg)](https://github.com/Francoamigoa/Week_2_homework/actions/workflows/ci.yml)
-# Week_2_homework (Parte 2)
-I'm Franco Amigo, 2nd year PhD Student in Population Health Sciences.
-
-This repository contains my Week 2 (or 3) Mini-Assignment using  Heart Disease UCI Dataset (Kaggle)
+# Week_2_homework (Part 3)
+This repository contains my Mini-Assignment using  Heart Disease UCI Dataset (Kaggle)
 
 Source https://www.kaggle.com/datasets/navjotkaushal/heart-disease-uci-dataset
+
+This project uses **GitHub Actions** to automatically check code quality and run tests on every push and pull request.  
+
+It builds the Docker image, runs the test suite (`pytest`), and checks formatting/linting. The badge below shows the latest status of the CI pipeline on the `main` branch:  
+
+[![CI](https://github.com/Francoamigoa/Week_2_homework/actions/workflows/ci.yml/badge.svg)](https://github.com/Francoamigoa/Week_2_homework/actions/workflows/ci.yml)
+
+# Personal objective
+
+I am a PhD student in Population Health Sciences, and my research topic is not related to heart disease. The purpose of this program is to conduct exploratory analyses of the dataset, understand the available variables, identify some crude associations between variables, and generate preliminary hypotheses that could later be confirmed with more robust study designs.
 
 # How is the code structured?
 
