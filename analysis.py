@@ -1,12 +1,14 @@
-# %% [markdown]
-# # Import the Dataset
-
-# %%
 import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import (
+    accuracy_score,
+    confusion_matrix,
+    recall_score,
+)
+import matplotlib.pyplot as plt
 
 
-# Load Heart Disease UCI Dataset
-# Source https://www.kaggle.com/datasets/navjotkaushal/heart-disease-uci-dataset
 def load_heart():
     return pd.read_csv("Data/cleanned.csv")
 
@@ -106,18 +108,8 @@ heart.groupby("num")[heart.select_dtypes(include="number").columns].agg(
 
 # %% [markdown]
 # # Explore a Machine Learning Algorithm
-# For simplicity, the variable num will be recategorized into 0 and 1, with 0 representing no disease and 1 indicating the presence of heart disease.
-
 # %%
 # Model 1: Only Sex and age
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import (
-    accuracy_score,
-    confusion_matrix,
-    precision_score,
-    recall_score,
-)
 
 
 def run_logistic_model(
@@ -171,14 +163,6 @@ subset_variables = ["age", "sex_Male"]
 res = run_logistic_model(heart_d, subset_variables)
 
 # %%
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import (
-    accuracy_score,
-    confusion_matrix,
-    precision_score,
-    recall_score,
-)
 
 subset_variables = [
     "age",
@@ -197,15 +181,7 @@ subset_variables = [
 res = run_logistic_model(heart_d, subset_variables)
 
 
-# %% [markdown]
-# The second model, which incorporates more variables, shows improved accuracy, sensitivity, and specificity. Further refinement could involve applying more advanced methods for variable selection or exploring alternative ML algorithms.
-#
-# # Visualization
-#
-# Below are two examples of visualization. The first shows the distribution of age by sex. The second shows age by severity.
-
 # %%
-import matplotlib.pyplot as plt
 
 # Boxplot de edad por sexo
 plt.figure(figsize=(6, 6))
@@ -217,7 +193,6 @@ plt.ylabel("Age")
 plt.show()
 
 # %%
-import matplotlib.pyplot as plt
 
 # Boxplot sex-severity
 plt.figure(figsize=(6, 6))
