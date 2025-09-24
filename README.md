@@ -1,5 +1,4 @@
-![example workflow](https://github.com/Francoamigoa/Week_2_homework/actions/workflows/ci.yml/badge.svg)
-
+[![CI](https://github.com/Francoamigoa/Week_2_homework/actions/workflows/ci.yml/badge.svg)](https://github.com/Francoamigoa/Week_2_homework/actions/workflows/ci.yml)
 # Week_2_homework (Parte 2)
 I'm Franco Amigo, 2nd year PhD Student in Population Health Sciences.
 
