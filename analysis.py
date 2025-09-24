@@ -144,6 +144,8 @@ def run_logistic_model(
         "Sensitivity": round(sensitivity, 3),
         "Specificity": round(specificity, 3),
         "Confusion_matrix": cm,
+        "Model": model,
+        "Feature_names": X_train.columns.tolist(),
     }
 
 
