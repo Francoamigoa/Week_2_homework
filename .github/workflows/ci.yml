@@ -13,8 +13,8 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install black flake8
-      - run: black --check src/ tests/
-      - run: flake8 --ignore=E203,W503 src/ tests/
+      - run: black --check .
+      - run: flake8 --ignore=E203,W503 .
 
   test:
     runs-on: ubuntu-latest
