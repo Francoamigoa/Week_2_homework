@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
@@ -201,4 +202,50 @@ plt.title("Boxplot of Age by Disease severity")
 plt.suptitle("")
 plt.xlabel("Disease severity (num)")
 plt.ylabel("Age")
+plt.show()
+
+name_map = {
+    "age": "Age",
+    "sex_Male": "Male (vs Female)",
+    "cp_typical angina": "Chest pain: Typical angina",
+    "cp_non-anginal": "Chest pain: Non-anginal",
+    "cp_asymptomatic": "Chest pain: Asymptomatic",
+    "restecg_normal": "Resting ECG: Normal",
+    "restecg_st-t abnormality": "Resting ECG: ST-T abnormality",
+    "fbs_True": "Fasting blood sugar >120",
+    "exang_True": "Exercise-induced angina",
+    "trestbps": "Resting blood pressure",
+    "chol": "Cholesterol",
+    "thalach": "Max heart rate (thalach)",
+    "oldpeak": "ST depression (oldpeak)",
+}
+
+
+def feature_importance(result, name_map=None):
+    model = result["Model"]
+    features = result["Feature_names"]
+    coefs = model.coef_.flatten()
+    imp = pd.DataFrame(
+        {
+            "Feature": features,
+            "Coefficient": coefs,
+            "Abs_Coefficient": np.abs(coefs),
+            "OR": np.exp(coefs),
+        }
+    ).sort_values("Abs_Coefficient", ascending=False)
+    if name_map:
+        imp["Feature"] = imp["Feature"].map(lambda x: name_map.get(x, x))
+    return imp
+
+
+imp_df = feature_importance(res, name_map)
+
+top = imp_df.head(10).sort_values("OR", ascending=True)
+plt.figure(figsize=(6, 4))
+plt.barh(top["Feature"], top["OR"])
+plt.axvline(1, color="k", linestyle="--")
+plt.title("Top factors – Odds Ratios")
+plt.xlabel("Odds Ratio")
+plt.tight_layout()
+plt.savefig("feature_importance_or.png", dpi=120)
 plt.show()
