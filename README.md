@@ -93,3 +93,9 @@ test_analysis.py includes:
 - Unit: test_run_logistic_model_basic → checks model metrics.
 - System (end-to-end): test_end_to_end_pipeline → real pipeline (load → dummies → model → metrics) with sanity checks on Accuracy/Sensitivity/Specificity ∈ [0,1].
 
+# Screenshot Commit diff (before/after refactoring) 
+I refactored the code in VS Code using the rename (F2) and extract method/variable features to improve readability and modularity. In addition, I ensured code quality by integrating Black for automatic formatting and Flake8 for linting; both tools were added to the GitHub Actions CI workflow so that formatting and style checks now run automatically on every push. A partial screenshot of some of the changes is included below.
+
+<img width="1877" height="981" alt="image" src="https://github.com/user-attachments/assets/c98c7fff-c2ef-4b6c-a77e-9ba600f13974" />
+
+
